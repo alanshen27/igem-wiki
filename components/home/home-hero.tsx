@@ -66,10 +66,14 @@ function CinematicField({ progress }: { progress: MotionValue<number> }) {
   const scrollHint = useTransform(progress, [0, 0.06], [1, 0]);
   const scrollHintY = useTransform(progress, [0, 0.1], [0, 160]);
 
+  // The dark legibility vignette is only needed while the text is on screen —
+  // fade it out before the milk fills so it doesn't leave a grey edge/box.
+  const vignetteOpacity = useTransform(progress, [0, 0.32, 0.5], [1, 1, 0]);
+
   // Safety net: once the bloating bubbles have covered the centre, fade a solid
-  // ivory layer in for the last stretch so screen corners are fully filled and
-  // the hero hands off seamlessly to the light section (no dark→light seam).
-  const floodOpacity = useTransform(progress, [0.82, 0.99], [0, 1]);
+  // ivory layer in so screen corners are fully filled and the hero hands off
+  // seamlessly to the light section (no dark→light seam, no grey box edge).
+  const floodOpacity = useTransform(progress, [0.62, 0.85], [0, 1]);
 
   return (
     <>
@@ -116,16 +120,20 @@ function CinematicField({ progress }: { progress: MotionValue<number> }) {
           the screen, its droplets flying to the edges to back the next section */}
       <motion.div
         style={{ scale: blobScale, opacity: blobFieldOpacity }}
-        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48vw,340px)] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_18px_50px_rgba(7,5,16,0.55)]"
+        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48vw,340px)] -translate-x-1/2 -translate-y-1/2"
         aria-hidden
       >
         <MilkBlobs progress={progress} className="h-full w-full" />
       </motion.div>
 
-      {/* Legibility vignette */}
-      <div
+      {/* Legibility vignette — fades out before the milk fills so it leaves no
+          grey box edge around the pinned viewport */}
+      <motion.div
+        style={{
+          opacity: vignetteOpacity,
+          background: "radial-gradient(120% 90% at 50% 50%, transparent 45%, var(--color-ink) 92%)",
+        }}
         className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(120% 90% at 50% 50%, transparent 45%, var(--color-ink) 92%)" }}
         aria-hidden
       />
 
