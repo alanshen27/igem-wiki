@@ -1,26 +1,275 @@
 @import "tailwindcss";
 
+/*
+  AURA — iGEM 2025 design system
+  "prestige biotech wiki meets indie teen science film"
+  Milk is quiet. Infection is not.
+*/
+
+@theme {
+  /* --- Core surfaces --- */
+  --color-milk: #fbf7ee; /* warm ivory / milk white */
+  --color-cream: #f4ecdd; /* slightly deeper milk */
+  --color-ink: #070510; /* near-black, warm midnight (matches hoodie) */
+  --color-ink-2: #100b1c; /* raised surface on dark */
+  --color-ink-3: #191125; /* card on dark */
+  --color-slate: #2a2038; /* borders / muted lines on dark */
+
+  /* --- Primary brand signals: pink + cyan --- */
+  --color-pink: #ff5fa2; /* electric aura pink (primary) */
+  --color-pink-soft: #ff8fc0; /* blush */
+  --color-pink-deep: #d63a7a;
+  --color-signal: #2fd4e8; /* electric cyan biosensor signal (primary) */
+  --color-signal-deep: #0891a8;
+
+  /* --- Warm softeners: orange + butter --- */
+  --color-orange: #ff8a4c; /* warm orange */
+  --color-butter: #f7c65a; /* dairy optimism / yellow */
+  --color-coral: #ff6f81; /* inflamed mastitis signal */
+  --color-coral-deep: #d63a55;
+  --color-bio: #46d19b; /* fresh biological green */
+  --color-warn: #ff5a2c; /* warning red-orange (sparse) */
+
+  /* --- Neutral text scale (on milk) --- */
+  --color-ink-70: rgba(6, 10, 18, 0.7);
+  --color-ink-55: rgba(6, 10, 18, 0.55);
+  --color-ink-40: rgba(6, 10, 18, 0.4);
+
+  /* --- Fonts (all sans-serif; no serif display, no monospace) --- */
+  --font-display: var(--font-space), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Kept as a token for the label/eyebrow style — now sans, not mono. */
+  --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Radius --- */
+  --radius-card: 1.25rem;
+
+  /* --- Timing --- */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-milk);
+  --foreground: var(--color-ink);
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-milk);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection */
+::selection {
+  background: color-mix(in srgb, var(--color-signal) 35%, transparent);
+  color: var(--color-ink);
+}
+
+/* Focus ring — accessible keyboard states */
+:where(a, button, [role="button"], input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-signal-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Dark section utility: flips the surface to midnight */
+.section-dark {
+  background: var(--color-ink);
+  color: var(--color-milk);
+  --foreground: var(--color-milk);
+}
+.section-dark ::selection {
+  background: color-mix(in srgb, var(--color-signal) 45%, transparent);
+  color: var(--color-milk);
+}
+
+/* Display type helpers */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Fluid display sizes. */
+.display-hero {
+  font-size: clamp(2.75rem, 8vw, 7rem);
+  line-height: 1;
+  padding-bottom: 0.04em;
+}
+.display-1 {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.05;
+  padding-bottom: 0.04em;
+}
+.display-2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  line-height: 1.12;
+  padding-bottom: 0.04em;
+}
+
+/* Eyebrow / kicker label — sans, tracked + uppercase (no monospace) */
+.kicker {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Thin hairline grid background (farm grid -> lab grid motif) */
+.bg-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, currentColor 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, currentColor 8%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Milk-glass card */
+.glass {
+  background: color-mix(in srgb, var(--color-milk) 6%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--color-milk) 14%, transparent);
+}
+
+/* Signal glow (cyan) */
+.glow-signal {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-signal) 40%, transparent),
+    0 0 40px -8px color-mix(in srgb, var(--color-signal) 60%, transparent);
+}
+/* Pink glow */
+.glow-pink {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-pink) 40%, transparent),
+    0 0 44px -8px color-mix(in srgb, var(--color-pink) 65%, transparent);
+}
+
+/*
+  THE AURA — signature soft radial bloom (from the hoodie reference).
+  Pink core → warm orange/butter mid → cyan halo, fading to nothing.
+  Use as a background layer behind hero content on dark surfaces.
+*/
+.aura-bloom {
+  background:
+    radial-gradient(
+      42% 42% at 50% 45%,
+      color-mix(in srgb, var(--color-pink) 92%, white) 0%,
+      var(--color-pink) 22%,
+      color-mix(in srgb, var(--color-coral) 90%, var(--color-orange)) 44%,
+      color-mix(in srgb, var(--color-orange) 70%, transparent) 60%,
+      color-mix(in srgb, var(--color-butter) 30%, transparent) 72%,
+      transparent 84%
+    );
+  filter: blur(6px);
+}
+/* Cyan counter-bloom, used offset behind the pink for depth */
+.aura-bloom-cyan {
+  background: radial-gradient(
+    40% 40% at 50% 50%,
+    color-mix(in srgb, var(--color-signal) 85%, white) 0%,
+    var(--color-signal) 30%,
+    color-mix(in srgb, var(--color-signal) 40%, transparent) 58%,
+    transparent 78%
+  );
+  filter: blur(10px);
+}
+
+/* Gradient text: pink → orange → butter */
+.text-aura {
+  background: linear-gradient(
+    100deg,
+    var(--color-pink) 0%,
+    var(--color-coral) 38%,
+    var(--color-orange) 70%,
+    var(--color-butter) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* Gradient text: cyan → pink (signal duo) */
+.text-duo {
+  background: linear-gradient(100deg, var(--color-signal) 0%, var(--color-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes aura-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+.animate-aura { animation: aura-breathe 8s var(--ease-out-soft) infinite; }
+
+/* Custom scrollbar (subtle) */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-ink) 25%, transparent);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+/* --- Keyframes for SVG / ambient motion --- */
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-14px) translateX(6px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -1000; }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+.animate-drift { animation: drift 9s var(--ease-out-soft) infinite; }
+
+/* Reduced motion: turn off ambient + smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
