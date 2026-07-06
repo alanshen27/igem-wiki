@@ -29,8 +29,9 @@ export default function Home() {
 
       {/* 1 — The hidden infection (light — the milk flood from the hero lands here) */}
       <section className="relative overflow-hidden bg-milk pb-24 pt-28">
-        {/* Faint aura still glowing at the top, bleeding down from the hero */}
-        <Parallax speed={120} className="pointer-events-none absolute inset-x-0 -top-[38vh] mx-auto h-[80vh] w-[120vw] max-w-none aura-bloom opacity-25 blur-3xl">
+        {/* Faint aura still glowing behind the content — a soft centred halo,
+            not a hard band at the seam. */}
+        <Parallax speed={90} className="pointer-events-none absolute left-1/2 top-[8vh] h-[70vh] w-[95vw] max-w-5xl -translate-x-1/2 aura-bloom opacity-[0.14] blur-[80px]">
           <></>
         </Parallax>
         <Container className="relative">

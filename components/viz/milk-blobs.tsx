@@ -56,10 +56,12 @@ export function MilkBlobs({
   return (
     <svg viewBox="0 0 200 200" className={className} aria-hidden>
       <defs>
-        <radialGradient id="milkGrad" cx="42%" cy="38%" r="70%">
+        <radialGradient id="milkGrad" cx="42%" cy="38%" r="72%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="60%" stopColor="var(--color-milk)" />
-          <stop offset="100%" stopColor="#e9dcc4" />
+          <stop offset="70%" stopColor="var(--color-milk)" />
+          {/* Edge matches the milk surface exactly → no darker ring/arc when the
+              bubbles bloat and merge into the full-screen fill. */}
+          <stop offset="100%" stopColor="var(--color-milk)" />
         </radialGradient>
         {/* Gooey metaball filter: blur then sharpen alpha to merge nearby blobs */}
         <filter id="milkGoo">
