@@ -1,0 +1,56 @@
+name: "My Demo"
+viewport:
+  width: 1280
+  height: 800
+
+effects:
+  deviceFrame:
+    enabled: true
+    type: browser
+  cursor:
+    enabled: true
+    clickEffect: true
+    highlight: true
+  background:
+    type: gradient
+    value: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    padding: 48
+    borderRadius: 14
+    shadow: true
+
+# Recording-time injection — tweak the page without touching your code.
+# All assets referenced here resolve relative to this file.
+# prepare:
+#   hide:
+#     - "#cookie-banner"
+#   freezeTime: "2026-06-10T09:00:00Z"
+#   seedRandom: 42
+#   storage:
+#     localStorage:
+#       onboarding_done: "true"
+#   mock:
+#     - url: "/api/stats"
+#       fixture: ../fixtures/stats.json
+#   inject:
+#     css: ../prepare/demo.css
+
+output:
+  format: mp4
+  fps: 30
+  preset: balanced  # social | balanced | archive
+
+steps:
+  - name: "Open app"
+    captureDelay: 100
+    holdDuration: 1000
+    actions:
+      - action: navigate
+        url: "http://localhost:3000"
+        waitUntil: load
+
+  - name: "Click button"
+    captureDelay: 50
+    holdDuration: 800
+    actions:
+      - action: click
+        selector: "#my-button"

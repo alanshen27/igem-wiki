@@ -1,0 +1,85 @@
+name: "AURA iGEM Wiki Tour"
+viewport:
+  width: 1280
+  height: 720
+
+effects:
+  deviceFrame:
+    enabled: false
+  cursor:
+    enabled: true
+    clickEffect: true
+    highlight: true
+
+output:
+  format: gif
+  fps: 8
+  width: 960
+  preset: social
+  filename: aura-wiki-tour
+
+steps:
+  - name: "Home — hero"
+    captureDelay: 100
+    holdDuration: 1200
+    actions:
+      - action: navigate
+        url: "http://localhost:3000"
+        waitUntil: networkidle
+
+  - name: "Scroll through hero"
+    captureDelay: 50
+    holdDuration: 900
+    actions:
+      - action: scroll
+        y: 1200
+        smooth: false
+
+  - name: "Impact + our idea"
+    captureDelay: 50
+    holdDuration: 900
+    actions:
+      - action: scroll
+        y: 1400
+        smooth: false
+
+  - name: "Open description"
+    captureDelay: 80
+    holdDuration: 1000
+    actions:
+      - action: click
+        selector: 'header a.rounded-full.bg-ink'
+        timeout: 8000
+        waitFor: navigation
+
+  - name: "Description — scroll"
+    captureDelay: 80
+    holdDuration: 900
+    actions:
+      - action: scroll
+        y: 900
+        smooth: false
+
+  - name: "Background page"
+    captureDelay: 80
+    holdDuration: 1000
+    actions:
+      - action: navigate
+        url: "http://localhost:3000/background"
+        waitUntil: networkidle
+
+  - name: "Background — scroll"
+    captureDelay: 50
+    holdDuration: 800
+    actions:
+      - action: scroll
+        y: 600
+        smooth: false
+
+  - name: "Return home"
+    captureDelay: 80
+    holdDuration: 900
+    actions:
+      - action: click
+        selector: 'a[aria-label="AURA home"]'
+        waitFor: navigation
