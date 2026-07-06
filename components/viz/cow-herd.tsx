@@ -20,7 +20,6 @@ export function CowGlyph({ className }: { className?: string }) {
 
 function GradualCow({
   index,
-  total,
   highlightCount,
   highlightIndices,
   progress,
@@ -28,7 +27,6 @@ function GradualCow({
   cowClassName,
 }: {
   index: number;
-  total: number;
   highlightCount: number;
   highlightIndices?: number[];
   progress: MotionValue<number>;
@@ -100,7 +98,6 @@ export function CowHerd({
         <GradualCow
           key={i}
           index={i}
-          total={total}
           highlightCount={highlightCount}
           highlightIndices={highlightIndices}
           progress={progress}

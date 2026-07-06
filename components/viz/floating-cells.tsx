@@ -13,6 +13,27 @@ type Cell = {
   dur: number;
 };
 
+function createRand(seed: number) {
+  let state = seed;
+  return () => {
+    state = (state * 9301 + 49297) % 233280;
+    return state / 233280;
+  };
+}
+
+function generateCells(density: number, seed: number): Cell[] {
+  const rand = createRand(seed);
+  const kinds: Cell["kind"][] = ["cell", "cell", "signal", "bacteria", "cell"];
+  return Array.from({ length: density }, () => ({
+    cx: rand() * 100,
+    cy: rand() * 100,
+    r: 0.4 + rand() * 2.2,
+    kind: kinds[Math.floor(rand() * kinds.length)],
+    delay: rand() * 6,
+    dur: 6 + rand() * 8,
+  }));
+}
+
 const COLORS = {
   cell: "var(--color-milk)",
   signal: "var(--color-signal)",
@@ -36,23 +57,7 @@ export function FloatingCellBackground({
 }) {
   const reduce = useReducedMotion();
 
-  const cells = useMemo<Cell[]>(() => {
-    // Deterministic pseudo-random so SSR + client match.
-    let s = seed;
-    const rand = () => {
-      s = (s * 9301 + 49297) % 233280;
-      return s / 233280;
-    };
-    const kinds: Cell["kind"][] = ["cell", "cell", "signal", "bacteria", "cell"];
-    return Array.from({ length: density }, () => ({
-      cx: rand() * 100,
-      cy: rand() * 100,
-      r: 0.4 + rand() * 2.2,
-      kind: kinds[Math.floor(rand() * kinds.length)],
-      delay: rand() * 6,
-      dur: 6 + rand() * 8,
-    }));
-  }, [density, seed]);
+  const cells = useMemo(() => generateCells(density, seed), [density, seed]);
 
   return (
     <div className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)} aria-hidden>

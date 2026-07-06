@@ -8,7 +8,6 @@ import { ImpactStats } from "@/components/home/impact-stats";
 import { Button } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Parallax } from "@/components/motion/parallax";
-import { Tilt } from "@/components/motion/tilt";
 import { Floaty, AuraDrift } from "@/components/motion/float";
 import { BiosensorDiagram } from "@/components/viz/biosensor-diagram";
 import { DbtlWheel } from "@/components/viz/dbtl-wheel";

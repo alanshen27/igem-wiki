@@ -12,8 +12,13 @@ import { WikiNavCard } from "./wiki-nav-card";
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
-  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const pathname = usePathname();
+  const [menuState, setMenuState] = useState<{ pathname: string; openGroup: string | null }>({
+    pathname,
+    openGroup: null,
+  });
+  const openGroup = menuState.pathname === pathname ? menuState.openGroup : null;
+  const setOpenGroup = (group: string | null) => setMenuState({ pathname, openGroup: group });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,9 +26,6 @@ export function SiteNav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // Close mega-menu on route change
-  useEffect(() => setOpenGroup(null), [pathname]);
 
   return (
     <header

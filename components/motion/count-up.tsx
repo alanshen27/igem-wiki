@@ -51,14 +51,12 @@ export function CountUp({
     return () => controls.stop();
   }, [inView, reduce, from, to, duration, progress]);
 
-  useEffect(() => {
-    if (progress && reduce) setValue(to);
-  }, [progress, reduce, to]);
+  const displayValue = reduce && !progress ? to : value;
 
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {value.toFixed(decimals)}
+      {displayValue.toFixed(decimals)}
       {suffix}
     </span>
   );
