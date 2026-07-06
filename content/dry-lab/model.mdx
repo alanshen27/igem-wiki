@@ -1,0 +1,39 @@
+<Section id="overview" title="Modeling overview" kicker="01">
+
+Dry-lab models guide where to spend bench time: which promoter strength, which incubation window, and what detection threshold would matter on a farm. Models are theoretical until calibrated with wet-lab data.
+
+</Section>
+
+<Section id="kinetics" title="Binding & induction kinetics" kicker="02">
+
+We model marker binding and downstream reporter induction as coupled processes. Parameters come from literature where available and from our own assays when measured.
+
+<Placeholder label="Kinetic schematic and parameter table — pending calibration" />
+
+</Section>
+
+<Section id="sensitivity" title="Sensitivity analysis" kicker="03">
+
+Sensitivity analysis asks which parameters most affect time-to-signal and limit of detection: promoter leakiness, degradation rate, marker concentration, and milk matrix effects.
+
+<ScienceExplainer
+  accent="signal"
+  analogy="Turning knobs on a mixing desk to see which one actually changes the sound — sensitivity analysis finds the knobs that matter."
+  precise="Partial derivatives or Monte Carlo sweeps over parameter ranges identify which biochemical constants dominate output variance."
+/>
+
+</Section>
+
+<Section id="thresholds" title="Decision thresholds" kicker="04">
+
+Thresholds are framed with veterinary input: a screen should flag risk for follow-up, not diagnose. Model outputs suggest feasible regions; stakeholders set what is actionable.
+
+</Section>
+
+<Section id="limits" title="Limits" kicker="05">
+
+<Callout variant="warn" title="Not a substitute for data">
+  Models without calibration are hypotheses. We do not use unvalidated model output as evidence of clinical performance.
+</Callout>
+
+</Section>

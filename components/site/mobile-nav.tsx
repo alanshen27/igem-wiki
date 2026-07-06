@@ -6,6 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/nav";
 import { AuraMark } from "./aura-mark";
+import { WikiNavCard } from "./wiki-nav-card";
 import {
   Accordion,
   AccordionItem,
@@ -30,7 +31,11 @@ export function MobileNav() {
         <Dialog.Overlay className="fixed inset-0 z-[70] bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out" />
         <Dialog.Content className="fixed inset-y-0 right-0 z-[80] flex w-[88%] max-w-sm flex-col bg-milk shadow-2xl focus:outline-none">
           <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
-            <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-lg focus-visible:outline-none"
+            >
               <AuraMark className="h-7 w-7" />
               <span className="font-display text-xl font-semibold">AURA</span>
             </Link>
@@ -48,19 +53,20 @@ export function MobileNav() {
                 <AccordionItem key={group.label} value={group.label}>
                   <AccordionTrigger className="font-display text-lg">{group.label}</AccordionTrigger>
                   <AccordionContent>
-                    <ul className="space-y-1">
+                    <div className="grid gap-2 pt-1">
                       {group.links.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            onClick={() => setOpen(false)}
-                            className="block rounded-lg px-2 py-2 text-ink-70 hover:bg-ink/5 hover:text-ink"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
+                        <WikiNavCard
+                          key={link.href}
+                          href={link.href}
+                          label={link.label}
+                          desc={link.desc}
+                          accent={link.accent}
+                          variant="compact"
+                          showCta={false}
+                          onNavigate={() => setOpen(false)}
+                        />
                       ))}
-                    </ul>
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               ))}

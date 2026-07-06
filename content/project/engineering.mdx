@@ -1,0 +1,99 @@
+<Section id="overview" title="Engineering overview" kicker="01">
+
+AURA's engineering story is organised around five Design–Build–Test–Learn (DBTL) cycles. Each cycle starts with a question, turns it into a biological design, tests that design against controls, and feeds what we learn back into the next loop.
+
+We chose DBTL deliberately: a biosensor is not a single construct but a system — recognition, amplification, readout, and deployment all have to work together. Iteration is how we get there without overclaiming.
+
+<Callout variant="note" title="How to read this page">
+  Cycles describe intent, design rationale, and what we tested or plan to test. Where wet-lab data is still pending, we say so explicitly.
+</Callout>
+
+</Section>
+
+<Section id="cycle-1" title="Cycle 1 — Target selection" kicker="02">
+
+**Design.** We surveyed mastitis-associated biomarkers in milk — somatic cells, acute-phase proteins, enzymes — and ranked them by how early they move, how specific they are to inflammation, and how tractable they are for a cell-free or contained biosensor.
+
+**Build.** Literature review and stakeholder interviews narrowed the field. We drafted a decision matrix scoring each candidate on detectability, cost, and farm-deployability.
+
+**Test.** We compared predicted signal windows against published SCC and inflammatory marker kinetics from mastitis challenge studies.
+
+**Learn.** Host-response signals that rise before clinical signs are more useful than pathogen-specific targets for a first-generation screen. Cycle 2 focuses on turning that insight into a recognition module.
+
+</Section>
+
+<Section id="cycle-2" title="Cycle 2 — Recognition module" kicker="03">
+
+**Design.** Select a biological recognition element — aptamer, antibody fragment, or engineered receptor — that binds the chosen marker with usable affinity in milk matrix.
+
+**Build.** Order or assemble candidate recognition sequences; clone into a test backbone with a constitutive reporter for binding-screening assays.
+
+**Test.** Binding assays against purified marker and spiked milk samples, with irrelevant-protein controls.
+
+**Learn.** Milk matrix interferes with some formats more than others. We adjusted buffer conditions and immobilisation strategy before moving to genetic circuit design.
+
+<Placeholder label="Binding assay curves — data pending" />
+
+</Section>
+
+<Section id="cycle-3" title="Cycle 3 — Genetic circuit" kicker="04">
+
+**Design.** Wire recognition to a regulated promoter and reporter gene so that binding events produce an amplified, readable output — colour or fluorescence.
+
+**Build.** Assemble promoter–RBS–reporter constructs; prepare cell-free lysate or contained-cell expression format depending on biosafety constraints.
+
+**Test.** Characterise dose–response against marker concentration; measure leakiness, dynamic range, and time-to-signal.
+
+**Learn.** Reporter choice trades sensitivity against background. We iterated on promoter strength and ribosome-binding site spacing to reduce basal expression.
+
+<div className="not-prose my-6 rounded-[var(--radius-card)] border border-ink/10 bg-ink p-6">
+  <BiosensorDiagram />
+</div>
+
+</Section>
+
+<Section id="cycle-4" title="Cycle 4 — Readout & device" kicker="05">
+
+**Design.** Translate the biological output into something a farmer or vet can read at the parlour — lateral-flow strip, colour card, or simple fluorescence reader.
+
+**Build.** Prototype a paper-based or membrane strip format; pair with a low-cost LED excitation module for fluorescent reporters.
+
+**Test.** End-to-end runs with control and spiked milk; measure limit of detection, time-to-result, and robustness to temperature variation.
+
+**Learn.** A two-band strip (control + test) is essential for interpretability. Hardware and wet-lab cycles ran in parallel so readout format shaped construct design.
+
+</Section>
+
+<Section id="cycle-5" title="Cycle 5 — Integration & validation" kicker="06">
+
+**Design.** Combine recognition, circuit, and readout into a single workflow: sample → incubate → read → interpret. Define pass/fail thresholds with veterinary input.
+
+**Build.** Freeze the construct set; document the full protocol; prepare positive and negative control panels.
+
+**Test.** Blind runs on characterised milk samples (where available); compare AURA output against SCC and culture reference methods.
+
+**Learn.** Integration exposes failure modes invisible in isolated assays — matrix effects, timing, and user interpretation. This cycle closes the loop and sets the agenda for post-competition validation.
+
+<Callout variant="safety" title="Scope reminder">
+  AURA is diagnostic-support, not diagnostic. Thresholds are designed to flag risk for follow-up, not to replace veterinary judgement or culture.
+</Callout>
+
+</Section>
+
+<Section id="dbtl" title="The DBTL wheel" kicker="07">
+
+<div className="not-prose -mx-4 sm:-mx-8">
+  <DbtlWheel />
+</div>
+
+</Section>
+
+<Section id="pipeline" title="From milk to signal" kicker="08">
+
+<div className="not-prose my-4">
+  <FarmToLabPipeline />
+</div>
+
+The pipeline above is the engineering backbone: every DBTL cycle touches one or more of these stages. Keeping the diagram in view helps us avoid optimising one block while another becomes the bottleneck.
+
+</Section>

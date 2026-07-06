@@ -1,22 +1,20 @@
 import Link from "next/link";
 import { HomeHero } from "@/components/home/home-hero";
+import { SignalSection } from "@/components/home/signal-section";
 import { WikiCards } from "@/components/home/wiki-cards";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/site/section-header";
-import { StatCard } from "@/components/ui/stat-card";
+import { ImpactStats } from "@/components/home/impact-stats";
 import { Button } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Parallax } from "@/components/motion/parallax";
 import { Tilt } from "@/components/motion/tilt";
 import { Floaty, AuraDrift } from "@/components/motion/float";
 import { BiosensorDiagram } from "@/components/viz/biosensor-diagram";
-import { FarmToLabPipeline } from "@/components/viz/farm-to-lab";
 import { DbtlWheel } from "@/components/viz/dbtl-wheel";
 import { StakeholderMap } from "@/components/viz/stakeholder-map";
-import { SignalRevealGraph } from "@/components/viz/signal-graph";
 import { FloatingCellBackground } from "@/components/viz/floating-cells";
-import { IMPACT_STATS } from "@/lib/content";
-import { ArrowRight, EyeOff, Microscope, FlaskConical } from "lucide-react";
+import { ArrowRight, Microscope, FlaskConical } from "lucide-react";
 
 const DETECTION = [
   { name: "Somatic cell count (SCC)", limit: "Reflects inflammation, but often measured periodically — a spike can be missed between tests." },
@@ -30,61 +28,10 @@ export default function Home() {
     <>
       <HomeHero />
 
-      {/* 1 — The hidden infection (light — the milk flood from the hero lands here) */}
-      <section className="relative overflow-hidden bg-milk pb-24 pt-28">
-        {/* Faint aura still glowing behind the content — a soft centred halo that
-            slowly breathes, picking up where the hero's bloom left off. */}
-        <Parallax speed={90} className="pointer-events-none absolute left-1/2 top-[8vh] h-[70vh] w-[95vw] max-w-5xl -translate-x-1/2">
-          <AuraDrift className="h-full w-full aura-bloom opacity-[0.14] blur-[80px]" duration={20} drift={40} />
-        </Parallax>
-        {/* A couple of drifting cell motes for depth on the quiet side. */}
-        <Floaty className="pointer-events-none absolute left-[6%] top-[22%] h-3 w-3 rounded-full bg-coral/25 blur-[1px]" amount={22} duration={9} />
-        <Floaty className="pointer-events-none absolute right-[10%] top-[62%] h-2 w-2 rounded-full bg-signal/30 blur-[1px]" amount={16} duration={11} delay={1.5} />
-        <Container className="relative">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <Reveal>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-ink/12 bg-ink/[0.03] px-3 py-1">
-                <EyeOff className="h-4 w-4 text-coral" />
-                <span className="text-[0.65rem] font-semibold uppercase tracking-widest text-ink-70">
-                  Subclinical mastitis
-                </span>
-              </div>
-              <SectionHeader
-                accent="coral"
-                title="Where the signal hides"
-                lede="Before a cow shows clinical signs — swelling, clots, a drop in yield — inflammation is already underway inside the udder. Somatic cell counts climb and milk quality quietly slips, yet the milk can still look completely normal."
-              />
-              <p className="mt-4 max-w-xl leading-relaxed text-ink-70">
-                By the time symptoms are obvious, treatment is harder, welfare has suffered, and
-                the loss is already spreading through the tank. The interesting window is the quiet
-                one — before anything looks wrong.
-              </p>
-            </Reveal>
-            <Parallax speed={46}>
-              <Reveal delay={0.1}>
-                <Tilt max={6} scale={1.015} className="group">
-                  <div className="rounded-[var(--radius-card)] border border-ink/10 bg-cream/50 p-8 shadow-[0_24px_80px_-40px_rgba(7,5,16,0.4)]">
-                    <SignalRevealGraph className="text-ink" />
-                    <p className="mt-4 text-center text-sm text-ink-55">
-                      Signal rises through the subclinical window — the goal is to read it while there
-                      is still time to act.
-                    </p>
-                  </div>
-                </Tilt>
-              </Reveal>
-            </Parallax>
-          </div>
-        </Container>
-      </section>
+      <SignalSection />
 
       {/* 2 — Small signal, massive cost */}
-      <section className="relative overflow-hidden bg-cream/40 py-20 sm:py-28">
-        <AuraDrift
-          className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full opacity-[0.12] blur-3xl"
-          style={{ background: "var(--color-coral)" }}
-          duration={18}
-          drift={30}
-        />
+      <section className="relative bg-gradient-to-b from-milk via-milk to-cream/40 py-20 sm:py-28">
         <Container className="relative">
           <SectionHeader
             kicker="Small signal, massive cost"
@@ -92,19 +39,9 @@ export default function Home() {
             title="A quiet problem with a very loud bill"
             lede="Mastitis is one of the most economically significant diseases in dairy — and most of the cost never shows up on a treatment invoice."
           />
-          <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {IMPACT_STATS.map((stat, i) => (
-              <StaggerItem key={stat.label}>
-                {/* Alternate cards drift at slightly different rates for a
-                    living, layered grid rather than a static row. */}
-                <Parallax speed={i % 2 === 0 ? 18 : 34} className="h-full">
-                  <Tilt max={9} scale={1.03} className="group h-full">
-                    <StatCard stat={stat} />
-                  </Tilt>
-                </Parallax>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <div className="mt-12">
+            <ImpactStats />
+          </div>
         </Container>
       </section>
 
@@ -141,9 +78,12 @@ export default function Home() {
       </section>
 
       {/* 4 — Our idea */}
-      <section className="section-dark relative overflow-hidden py-24">
-        <AuraDrift className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 aura-bloom opacity-30" duration={14} drift={36} />
-        <AuraDrift className="pointer-events-none absolute left-[12%] top-[16%] h-64 w-64 aura-bloom-cyan opacity-25 blur-2xl" duration={19} delay={2} drift={44} />
+      <section className="section-dark relative py-24">
+        {/* Bleed the cream section above into the dark surface */}
+        <div
+          className="pointer-events-none absolute inset-x-0 -top-20 h-20 bg-gradient-to-b from-cream/50 to-transparent"
+          aria-hidden
+        />
         <FloatingCellBackground density={16} tone="milk" seed={11} />
         <Container className="relative text-center">
           <Reveal>
@@ -181,42 +121,16 @@ export default function Home() {
             lede="A milk sample carries a biological marker. An engineered sensing system recognises it, amplifies the response, and turns it into a colour or fluorescence you can interpret."
           />
           <Reveal className="mt-14">
-            <Parallax speed={24}>
-              <BiosensorDiagram />
-            </Parallax>
-          </Reveal>
-          <Reveal className="mt-16">
-            <Tilt max={4} scale={1.008} className="group">
-              <div className="rounded-[var(--radius-card)] border border-ink/10 bg-cream/40 p-8 transition-shadow duration-300 group-hover:shadow-[0_30px_90px_-50px_rgba(7,5,16,0.5)]">
-                <p className="mb-8 text-center font-mono text-[0.7rem] uppercase tracking-widest text-ink-40">
-                  Farm-to-lab pipeline
-                </p>
-                <FarmToLabPipeline />
-              </div>
-            </Tilt>
+            <BiosensorDiagram />
           </Reveal>
         </Container>
       </section>
 
       {/* 6 — Design, Build, Test, Learn */}
-      <section className="relative overflow-hidden bg-cream/50 py-20 sm:py-28">
-        <AuraDrift
-          className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full opacity-[0.1] blur-3xl"
-          style={{ background: "var(--color-butter)" }}
-          duration={17}
-          drift={28}
-        />
-        <Container className="relative">
-          <SectionHeader
-            kicker="Engineering"
-            accent="butter"
-            title="Design, Build, Test, Learn — on repeat"
-            lede="AURA's engineering story runs through five iterative cycles. Each loop turns a question into a design, a design into a build, and a result into the next question."
-          />
-          <Parallax speed={26} className="mt-14 flex justify-center">
-            <DbtlWheel />
-          </Parallax>
-          <div className="mt-10 flex justify-center">
+      <section className="relative bg-cream/50">
+        <DbtlWheel />
+        <Container className="pb-20 sm:pb-28">
+          <div className="flex justify-center">
             <Button asChild variant="outline">
               <Link href="/engineering">
                 Walk through all five cycles <ArrowRight className="h-4 w-4" />
@@ -257,9 +171,13 @@ export default function Home() {
       </section>
 
       {/* 8 — Explore the wiki */}
-      <section className="section-dark relative overflow-hidden py-24">
-        <AuraDrift className="pointer-events-none absolute -left-24 top-10 h-80 w-80 aura-bloom-cyan opacity-30" duration={15} drift={40} />
-        <AuraDrift className="pointer-events-none absolute -right-16 bottom-6 h-72 w-72 aura-bloom opacity-20 blur-2xl" duration={21} delay={1.5} drift={32} />
+      <section className="section-dark relative py-24">
+        <AuraDrift
+          className="pointer-events-none absolute right-[20%] top-[-4%] h-72 w-72 aura-bloom opacity-[0.18] blur-2xl"
+          duration={21}
+          delay={1.5}
+          drift={24}
+        />
         <FloatingCellBackground density={14} tone="milk" seed={23} />
         <Container className="relative">
           <SectionHeader

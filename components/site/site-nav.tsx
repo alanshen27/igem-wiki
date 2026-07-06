@@ -8,6 +8,7 @@ import { NAV } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { AuraMark } from "./aura-mark";
 import { MobileNav } from "./mobile-nav";
+import { WikiNavCard } from "./wiki-nav-card";
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +36,11 @@ export function SiteNav() {
       onMouseLeave={() => setOpenGroup(null)}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="AURA home">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none"
+          aria-label="AURA home"
+        >
           <AuraMark className="h-8 w-8" />
           <span className="font-display text-2xl font-semibold tracking-tight text-ink">
             AURA
@@ -89,24 +94,22 @@ export function SiteNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-16 hidden border-b border-ink/10 bg-milk/95 backdrop-blur-xl lg:block"
+            className="absolute inset-x-0 top-16 hidden border-b border-ink/10 bg-milk lg:block"
           >
             <div className="mx-auto max-w-7xl px-8 py-8">
               {NAV.filter((g) => g.label === openGroup).map((group) => (
                 <div key={group.label}>
                   <p className="mb-5 max-w-md text-sm text-ink-55">{group.intro}</p>
-                  <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-5">
+                  <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
                     {group.links.map((link) => (
-                      <Link
+                      <WikiNavCard
                         key={link.href}
                         href={link.href}
-                        className="group rounded-2xl border border-transparent p-4 transition-all hover:border-ink/10 hover:bg-milk"
-                      >
-                        <p className="font-medium text-ink transition-colors group-hover:text-pink-deep">
-                          {link.label}
-                        </p>
-                        <p className="mt-1 text-xs leading-relaxed text-ink-55">{link.desc}</p>
-                      </Link>
+                        label={link.label}
+                        desc={link.desc}
+                        accent={link.accent}
+                        variant="compact"
+                      />
                     ))}
                   </div>
                 </div>

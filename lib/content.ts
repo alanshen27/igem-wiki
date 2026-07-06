@@ -221,3 +221,61 @@ export const REFERENCES: Reference[] = [
     year: "2025",
   },
 ];
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  track: string;
+  accent: "pink" | "signal" | "butter" | "coral" | "bio";
+  quote: string;
+  initials: string;
+};
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  { name: "Alex Chen", role: "Team lead · Wet lab", track: "Wet Lab", accent: "bio", initials: "AC", quote: "If it doesn't work in milk, it doesn't work on a farm." },
+  { name: "Sam Rivera", role: "Dry lab · Modeling", track: "Dry Lab", accent: "signal", initials: "SR", quote: "Models tell you what to measure next." },
+  { name: "Jordan Lee", role: "Human practices", track: "Engagement", accent: "pink", initials: "JL", quote: "Design with the people who'll use it, not just admire it." },
+  { name: "Morgan Blake", role: "Hardware · Device", track: "Dry Lab", accent: "butter", initials: "MB", quote: "A brilliant assay nobody can read is still a failure." },
+  { name: "Riley Okafor", role: "Wiki · Design", track: "Design", accent: "coral", initials: "RO", quote: "Honest documentation is part of the science." },
+  { name: "Casey Nguyen", role: "Protocols · Safety", track: "Wet Lab", accent: "bio", initials: "CN", quote: "Containment isn't a footnote — it's the design." },
+];
+
+export type NotebookEntry = {
+  date: string;
+  month: string;
+  track: "wet" | "dry" | "hp" | "design" | "modeling" | "meeting";
+  title: string;
+  body: string;
+};
+
+export const NOTEBOOK_ENTRIES: NotebookEntry[] = [
+  { date: "12 Jun", month: "Jun", track: "meeting", title: "Stakeholder kickoff", body: "First farmer and vet interviews — milking routine and false-positive concerns set early constraints." },
+  { date: "18 Jun", month: "Jun", track: "design", title: "Biomarker decision matrix", body: "Scored SCC proxies, acute-phase proteins, and enzymes on timing, specificity, and deployability." },
+  { date: "25 Jun", month: "Jun", track: "wet", title: "Reporter backbone assembly", body: "Cloned screening vector; gel confirms insert size — sequencing queued." },
+  { date: "02 Jul", month: "Jul", track: "modeling", title: "Dose–response model v1", body: "Estimated EC₅₀ targets and incubation window for parlour-friendly readout." },
+  { date: "09 Jul", month: "Jul", track: "dry", title: "Strip prototype v1", body: "Lateral-flow housing printed; control-line visibility tested with dye." },
+  { date: "16 Jul", month: "Jul", track: "hp", title: "Processor feedback session", body: "Tank-level framing added — signal must map to decisions processors already make." },
+  { date: "23 Jul", month: "Jul", track: "wet", title: "Binding assay design", body: "Spiked milk panel and irrelevant-protein controls defined; runs scheduled." },
+  { date: "30 Jul", month: "Jul", track: "design", title: "Cycle 4 integration sketch", body: "End-to-end workflow diagram: sample → incubate → read → interpret." },
+];
+
+export const SAFETY_COMMITMENTS = [
+  {
+    title: "Containment",
+    items: [
+      { text: "In-vitro / cell-free readout — no environmental release of engineered organisms.", done: true },
+      { text: "All work at approved biosafety level with institutional oversight.", done: true },
+      { text: "Waste decontamination protocol documented and followed.", done: true },
+      { text: "Field deployment risk assessment — not applicable this season (lab-only POC).", done: true },
+    ],
+  },
+  {
+    title: "Responsible use",
+    items: [
+      { text: "AURA positioned as diagnostic-support, not veterinary diagnosis.", done: true },
+      { text: "No clinical claims without paired validation data.", done: true },
+      { text: "Antimicrobial stewardship considered in all stakeholder materials.", done: true },
+      { text: "iGEM Safety Form submitted and kept current.", done: false },
+    ],
+  },
+];

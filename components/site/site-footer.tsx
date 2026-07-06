@@ -5,8 +5,11 @@ import { AuraMark } from "./aura-mark";
 
 export function SiteFooter() {
   return (
-    <footer className="section-dark relative overflow-hidden">
-      <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 aura-bloom opacity-30" aria-hidden />
+    <footer className="section-dark relative">
+      <div
+        className="pointer-events-none absolute right-[22%] top-[-10%] h-80 w-80 aura-bloom opacity-[0.16] blur-2xl"
+        aria-hidden
+      />
       <Container className="relative py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>

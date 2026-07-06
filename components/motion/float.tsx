@@ -16,7 +16,7 @@ export function Floaty({
   delay = 0,
   rotate = 0,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   /** Vertical travel in px. */
   amount?: number;
