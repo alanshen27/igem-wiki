@@ -43,37 +43,44 @@ function CinematicField({ progress }: { progress: MotionValue<number> }) {
   // Ambient cells drift slowly (parallax depth).
   const ambientY = useTransform(progress, [0, 1], [0, -180]);
 
-  // The milk-aura bloom swells but stays radial (dark edges) so the hero hands
-  // off cleanly to the next dark section — no hard colour seam.
-  const bloomScale = useTransform(progress, [0, 1], [0.9, 3.2]);
-  const bloomOpacity = useTransform(progress, [0, 0.6, 1], [0.7, 0.6, 0.5]);
+  // NOTE: every transform that must stay put after its move includes an explicit
+  // terminal keyframe at progress 1 (e.g. [...0.8, 1] → [...v, v]). Without the
+  // held endpoint the value drifts back down through the tail of the pin, which
+  // is what re-opened the dark radial corners at the seam.
+
+  // The milk-aura bloom swells while the text is on screen, then fades fully
+  // out before the milk flood arrives — leaving no warm ring at the seam.
+  const bloomScale = useTransform(progress, [0, 0.7, 1], [0.9, 3.2, 3.2]);
+  const bloomOpacity = useTransform(progress, [0, 0.45, 0.68, 1], [0.7, 0.55, 0, 0]);
 
   // A microscope focus ring blooms in briefly around the midpoint.
-  const ringScale = useTransform(progress, [0, 0.7], [0.6, 3.2]);
-  const ringOpacity = useTransform(progress, [0.05, 0.25, 0.55], [0, 0.6, 0]);
+  const ringScale = useTransform(progress, [0, 0.7, 1], [0.6, 3.2, 3.2]);
+  const ringOpacity = useTransform(progress, [0.05, 0.25, 0.55, 1], [0, 0.6, 0, 0]);
 
-  // Milk blob: hidden at rest, scales in as the text starts to separate, then
-  // explodes into droplets — and finally each bubble bloats (inside MilkBlobs)
-  // and merges into one milk mass. The wrapper keeps zooming so that mass grows
-  // past the viewport edges and fills the screen with ivory.
-  const blobScale = useTransform(progress, [0.06, 0.16, 0.55, 1], [0, 1, 1.5, 5]);
-  const blobFieldOpacity = useTransform(progress, [0.5, 0.7], [1, 1]);
+  // Milk blob: hidden at rest, scales in as the text separates, explodes into
+  // droplets, then bloats and merges into one milk mass. Crucially it FADES to
+  // zero as the flat flood takes over so its goo-filtered soft edge never
+  // re-emerges as a dark ring once the screen is meant to be solid.
+  const blobScale = useTransform(progress, [0.06, 0.16, 0.55, 0.8, 1], [0, 1, 1.6, 4.4, 4.4]);
+  const blobFieldOpacity = useTransform(progress, [0.56, 0.74, 1], [1, 0, 0]);
 
   // Content splits apart and exits the frame (transform-driven → reliable,
   // and stays fully visible at rest since no scroll-opacity is applied).
-  const titleY = useTransform(progress, [0, 0.5], [0, -1000]);
-  const descY = useTransform(progress, [0, 0.5], [0, 1000]);
+  const titleY = useTransform(progress, [0, 0.5, 1], [0, -1000, -1000]);
+  const descY = useTransform(progress, [0, 0.5, 1], [0, 1000, 1000]);
   const scrollHint = useTransform(progress, [0, 0.06], [1, 0]);
   const scrollHintY = useTransform(progress, [0, 0.1], [0, 160]);
 
   // The dark legibility vignette is only needed while the text is on screen —
   // fade it out before the milk fills so it doesn't leave a grey edge/box.
-  const vignetteOpacity = useTransform(progress, [0, 0.32, 0.5], [1, 1, 0]);
+  const vignetteOpacity = useTransform(progress, [0, 0.32, 0.5, 1], [1, 1, 0, 0]);
 
-  // Safety net: once the bloating bubbles have covered the centre, fade a solid
-  // ivory layer in so screen corners are fully filled and the hero hands off
-  // seamlessly to the light section (no dark→light seam, no grey box edge).
-  const floodOpacity = useTransform(progress, [0.62, 0.85], [0, 1]);
+  // Milk flood: a solid ivory layer that fades in over the blob merge and then
+  // HOLDS at full opacity through the end of the pin (explicit 1→1 tail). Because
+  // it is the topmost background layer and reaches 1 while the blob is still
+  // fading, the screen resolves to flat `--color-milk` — the exact surface of
+  // the next section, so the handoff is seamless (no dark→light seam, no ring).
+  const floodOpacity = useTransform(progress, [0.58, 0.74, 1], [0, 1, 1]);
 
   return (
     <>
@@ -137,10 +144,17 @@ function CinematicField({ progress }: { progress: MotionValue<number> }) {
         aria-hidden
       />
 
-      {/* Milk flood — fills to ivory at the end, blending into the light section */}
+      {/* Milk flood — fills to ivory at the end, blending into the light section.
+          Radial from a bright centre (matching the blob's specular) out to SOLID
+          milk by 55%, so every corner is fully covered while the merge reads as
+          the milk itself swelling to fill the frame. */}
       <motion.div
-        style={{ opacity: floodOpacity }}
-        className="pointer-events-none absolute inset-0 bg-milk"
+        style={{
+          opacity: floodOpacity,
+          background:
+            "radial-gradient(120% 120% at 50% 44%, #ffffff 0%, var(--color-milk) 55%, var(--color-milk) 100%)",
+        }}
+        className="pointer-events-none absolute inset-0"
         aria-hidden
       />
 
