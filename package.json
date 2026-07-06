@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "record": "clipwise record .clipwise/scenarios/aura-wiki.yaml -f gif -o .clipwise/output",
+    "record:mp4": "clipwise record .clipwise/scenarios/aura-wiki.yaml -f mp4 -o .clipwise/output",
+    "record:validate": "clipwise validate .clipwise/scenarios/aura-wiki.yaml"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.15",
@@ -28,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "clipwise": "^0.12.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",

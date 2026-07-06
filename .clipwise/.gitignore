@@ -1,0 +1,4 @@
+# Clipwise local artifacts — safe to ignore
+auth/
+output/
+cache/

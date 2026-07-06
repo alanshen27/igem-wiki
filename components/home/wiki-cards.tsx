@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
+import { Tilt } from "@/components/motion/tilt";
 import { ACCENT_HEX, type Accent } from "@/components/ui/badge";
 
 const CARDS: {
@@ -25,25 +26,27 @@ export function WikiCards() {
         const hex = ACCENT_HEX[c.accent];
         return (
           <StaggerItem key={c.href} className={c.span ? "sm:col-span-2 lg:col-span-1" : ""}>
-            <Link
-              href={c.href}
-              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-milk/70 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-ink/5"
-            >
-              <div
-                className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-15 blur-2xl transition-all duration-500 group-hover:scale-125 group-hover:opacity-40"
-                style={{ background: hex }}
-                aria-hidden
-              />
-              <div className="relative">
-                <span className="h-1 w-8 rounded-full" style={{ background: hex, display: "block" }} aria-hidden />
-                <h3 className="mt-4 font-display text-2xl text-ink">{c.label}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-70">{c.desc}</p>
-              </div>
-              <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-pink-deep">
-                Open page
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-            </Link>
+            <Tilt max={7} scale={1.02} className="group h-full">
+              <Link
+                href={c.href}
+                className="relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-milk/70 p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-ink/10"
+              >
+                <div
+                  className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-15 blur-2xl transition-all duration-500 group-hover:scale-125 group-hover:opacity-40"
+                  style={{ background: hex }}
+                  aria-hidden
+                />
+                <div className="relative">
+                  <span className="h-1 w-8 rounded-full transition-all duration-300 group-hover:w-14" style={{ background: hex, display: "block" }} aria-hidden />
+                  <h3 className="mt-4 font-display text-2xl text-ink">{c.label}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-70">{c.desc}</p>
+                </div>
+                <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-medium text-ink group-hover:text-pink-deep">
+                  Open page
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </Link>
+            </Tilt>
           </StaggerItem>
         );
       })}
