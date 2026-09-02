@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="960" height="840">
+  <defs>
+    <radialGradient id="body" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#f6b3c6"/>
+      <stop offset="0.7" stop-color="#f09bb4"/>
+      <stop offset="1" stop-color="#e2799b"/>
+    </radialGradient>
+    <linearGradient id="teat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f09bb4"/>
+      <stop offset="1" stop-color="#e45b88"/>
+    </linearGradient>
+  </defs>
+  <!-- belly fringe (cream fur) -->
+  <path fill="#f6eee0" d="M0 0 H480 V70 C440 88, 400 78, 360 96 C320 112, 280 84, 240 98 C200 112, 160 86, 120 100 C80 114, 40 84, 0 92 Z"/>
+  <!-- udder body -->
+  <path fill="url(#body)" d="M62 60 C40 130, 30 210, 60 262 C92 318, 160 340, 240 338 C320 340, 388 318, 420 262 C450 210, 440 130, 418 60 C360 92, 300 96, 240 92 C180 96, 120 92, 62 60 Z"/>
+  <!-- centre seam -->
+  <path fill="none" stroke="#e2799b" stroke-width="4" stroke-linecap="round" d="M240 130 C238 190, 240 250, 240 296"/>
+  <!-- soft highlight -->
+  <ellipse cx="150" cy="170" rx="46" ry="30" fill="#ffffff" opacity="0.22"/>
+  <!-- teats -->
+  <g fill="url(#teat)">
+    <path d="M120 300 C108 320, 110 372, 130 386 C150 400, 170 386, 172 366 C174 342, 160 312, 154 296 Z"/>
+    <path d="M204 318 C194 340, 196 388, 216 402 C236 416, 256 402, 256 380 C258 356, 246 330, 238 312 Z"/>
+    <path d="M272 312 C264 332, 266 380, 288 396 C308 410, 328 396, 328 374 C330 350, 316 322, 306 306 Z"/>
+    <path d="M340 296 C332 316, 336 360, 358 374 C376 386, 394 374, 394 354 C396 332, 380 306, 372 292 Z"/>
+  </g>
+  <!-- teat tips -->
+  <g fill="#e45b88">
+    <ellipse cx="146" cy="384" rx="14" ry="7"/>
+    <ellipse cx="232" cy="400" rx="14" ry="7"/>
+    <ellipse cx="304" cy="394" rx="14" ry="7"/>
+    <ellipse cx="372" cy="372" rx="12" ry="6"/>
+  </g>
+  <!-- a forming drop -->
+  <path fill="#f6eee0" d="M232 404 C226 412, 226 418, 232 420 C238 418, 238 412, 232 404 Z"/>
+</svg>

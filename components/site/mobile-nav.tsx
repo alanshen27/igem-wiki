@@ -5,7 +5,8 @@ import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import { NAV } from "@/lib/nav";
-import { AuraMark } from "./aura-mark";
+import { cn } from "@/lib/utils";
+import { AuraLogo } from "./aura-logo";
 import { WikiNavCard } from "./wiki-nav-card";
 import {
   Accordion,
@@ -14,14 +15,17 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 
-export function MobileNav() {
+export function MobileNav({ onDark = false }: { onDark?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <button
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink lg:hidden"
+          className={cn(
+            "inline-flex h-10 w-10 items-center justify-center rounded-full lg:hidden",
+            onDark ? "border border-milk/30 text-milk" : "border border-ink/15 text-ink",
+          )}
           aria-label="Open menu"
         >
           <Menu className="h-5 w-5" />
@@ -36,7 +40,7 @@ export function MobileNav() {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 rounded-lg focus-visible:outline-none"
             >
-              <AuraMark className="h-7 w-7" />
+              <AuraLogo className="h-8" />
               <span className="font-display text-xl font-semibold">AURA</span>
             </Link>
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>

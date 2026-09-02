@@ -6,32 +6,36 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { NAV } from "@/lib/nav";
 import { cn } from "@/lib/utils";
-import { AuraMark } from "./aura-mark";
+import { AuraLogo } from "./aura-logo";
 import { MobileNav } from "./mobile-nav";
 import { WikiNavCard } from "./wiki-nav-card";
 
 export function SiteNav() {
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [onDarkHero, setOnDarkHero] = useState(pathname === "/");
   const [menuState, setMenuState] = useState<{ pathname: string; openGroup: string | null }>({
     pathname,
     openGroup: null,
   });
   const openGroup = menuState.pathname === pathname ? menuState.openGroup : null;
   const setOpenGroup = (group: string | null) => setMenuState({ pathname, openGroup: group });
+  const dark = onDarkHero && !openGroup;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setOnDarkHero(pathname === "/" && y < window.innerHeight * 0.9);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-all duration-300",
-        scrolled
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        !dark
           ? "border-b border-ink/10 bg-milk/85 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent",
       )}
@@ -43,11 +47,21 @@ export function SiteNav() {
           className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none"
           aria-label="AURA home"
         >
-          <AuraMark className="h-8 w-8" />
-          <span className="font-display text-2xl font-semibold tracking-tight text-ink">
+          <AuraLogo />
+          <span
+            className={cn(
+              "font-display text-2xl font-semibold tracking-tight transition-colors",
+              dark ? "text-milk" : "text-ink",
+            )}
+          >
             AURA
           </span>
-          <span className="hidden font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink-40 sm:inline">
+          <span
+            className={cn(
+              "hidden text-[0.7rem] sm:inline",
+              dark ? "text-milk/45" : "text-ink-40",
+            )}
+          >
             iGEM 2025
           </span>
         </Link>
@@ -62,8 +76,13 @@ export function SiteNav() {
                 <button
                   className={cn(
                     "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
-                    isActiveGroup ? "text-ink" : "text-ink-70 hover:text-ink",
-                    isOpen && "text-ink",
+                    dark
+                      ? isActiveGroup || isOpen
+                        ? "text-milk"
+                        : "text-milk/70 hover:text-milk"
+                      : isActiveGroup || isOpen
+                        ? "text-ink"
+                        : "text-ink-70 hover:text-ink",
                   )}
                   aria-expanded={isOpen}
                   aria-haspopup="true"
@@ -80,11 +99,16 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <Link
             href="/description"
-            className="hidden rounded-full bg-ink px-5 py-2 text-sm font-medium text-milk transition-transform hover:-translate-y-0.5 sm:inline-flex lg:inline-flex"
+            className={cn(
+              "hidden rounded-full px-5 py-2 text-sm font-medium transition-transform hover:-translate-y-0.5 sm:inline-flex",
+              dark
+                ? "border border-milk/30 bg-milk/10 text-milk hover:bg-milk hover:text-ink"
+                : "bg-ink text-milk",
+            )}
           >
             Explore the Project
           </Link>
-          <MobileNav />
+          <MobileNav onDark={dark} />
         </div>
       </div>
 

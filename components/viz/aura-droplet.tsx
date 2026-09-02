@@ -62,13 +62,14 @@ export function AuraDroplet({ className }: { className?: string }) {
           const a = (i / 48) * Math.PI * 2;
           const r1 = 88;
           const r2 = i % 4 === 0 ? 82 : 85;
+          // toFixed keeps server/client trig output identical (hydration-safe)
           return (
             <line
               key={i}
-              x1={100 + Math.cos(a) * r1}
-              y1={100 + Math.sin(a) * r1}
-              x2={100 + Math.cos(a) * r2}
-              y2={100 + Math.sin(a) * r2}
+              x1={(100 + Math.cos(a) * r1).toFixed(3)}
+              y1={(100 + Math.sin(a) * r1).toFixed(3)}
+              x2={(100 + Math.cos(a) * r2).toFixed(3)}
+              y2={(100 + Math.sin(a) * r2).toFixed(3)}
               stroke="var(--color-milk)"
               strokeOpacity="0.18"
               strokeWidth="0.6"

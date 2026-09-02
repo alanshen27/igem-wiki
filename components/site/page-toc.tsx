@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export type TocItem = { id: string; label: string };
 
-/** In-page table of contents with scroll-spy active state. */
+/** Quiet chapter rail — H2s only. Active item is a pink pill. */
 export function PageToc({ items }: { items: TocItem[] }) {
   const [active, setActive] = useState(items[0]?.id);
 
@@ -27,9 +27,8 @@ export function PageToc({ items }: { items: TocItem[] }) {
   }, [items]);
 
   return (
-    <nav aria-label="On this page" className="sticky top-24 hidden max-h-[calc(100vh-8rem)] overflow-y-auto lg:block">
-      <p className="kicker mb-4 text-ink-40">On this page</p>
-      <ul className="space-y-1 border-l border-ink/10">
+    <nav aria-label="On this page" className="sticky top-24 hidden self-start lg:block">
+      <ul className="space-y-0.5">
         {items.map((item) => {
           const isActive = active === item.id;
           return (
@@ -37,12 +36,16 @@ export function PageToc({ items }: { items: TocItem[] }) {
               <a
                 href={`#${item.id}`}
                 className={cn(
-                  "-ml-px block border-l-2 py-1.5 pl-4 text-sm transition-colors",
-                  isActive
-                    ? "border-pink font-medium text-ink"
-                    : "border-transparent text-ink-55 hover:border-ink/30 hover:text-ink",
+                  "flex items-center gap-3 py-1.5 text-sm transition-colors",
+                  isActive ? "font-medium text-pink-deep" : "text-ink-55 hover:text-ink",
                 )}
               >
+                <span
+                  className={cn(
+                    "shrink-0 rounded-full transition-all duration-300",
+                    isActive ? "h-2 w-6 bg-pink" : "h-2 w-2 bg-ink/20",
+                  )}
+                />
                 {item.label}
               </a>
             </li>

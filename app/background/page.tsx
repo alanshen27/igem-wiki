@@ -5,6 +5,7 @@ import { CowSilhouette } from "@/components/viz/cow-silhouette";
 import { StatCard } from "@/components/ui/stat-card";
 import { Callout } from "@/components/ui/callout";
 import { IMPACT_STATS } from "@/lib/content";
+import { sceneFor } from "@/lib/art";
 
 export const metadata: Metadata = {
   title: "Background",
@@ -31,6 +32,8 @@ export default function BackgroundPage() {
       <PageHero
         kicker="Project · Background"
         accent="butter"
+        scene={sceneFor("/background")}
+        name="Background"
         title="The biology behind the bill"
         lede="To detect mastitis earlier, it helps to understand where it starts: the udder, the immune response, and the markers that rise before anything looks wrong."
       />

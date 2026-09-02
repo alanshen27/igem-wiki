@@ -42,3 +42,10 @@ next-env.d.ts
 
 # local capture output (screenshots from scripts/)
 /scripts/shots/
+
+# Fal generator scratch (auth headers / request bodies)
+/public/art/video/._*
+/scripts/.cache/
+
+# Fal candidates awaiting a human pick
+public/art/gen/review/

@@ -1,66 +1,89 @@
 "use client";
 
 import { motion } from "motion/react";
-import type { LucideIcon } from "lucide-react";
-import { Milk, TestTube, Cpu, LineChart, CheckCircle2 } from "lucide-react";
-import { CowGlyph } from "./cow-herd";
+import { Art } from "@/components/viz/art";
+import { DropMark, FlaskMark } from "@/components/viz/marks";
+import { Blob, LINE, SOFT_ID } from "@/components/viz/sketch";
 
-type PipelineStep = {
-  label: string;
-  sub: string;
-  accent: string;
-  icon?: LucideIcon;
-  cow?: boolean;
-};
+const INK = LINE;
+
+/* small inked glyphs for the steps that have no prop in the kit */
+function ReadoutGlyph() {
+  return (
+    <svg viewBox="0 0 60 60" className="h-9 w-9 overflow-visible" aria-hidden>
+      <g filter={`url(#${SOFT_ID})`} strokeLinecap="round" strokeLinejoin="round">
+        <rect x="14" y="10" width="32" height="42" rx="6" fill="var(--color-milk)" stroke={INK} strokeWidth="2.2" />
+        <rect x="19" y="16" width="22" height="18" rx="2" fill="var(--color-pink-soft)" stroke={INK} strokeWidth="1.6" />
+        <circle cx="30" cy="43" r="3" fill="var(--color-butter)" stroke={INK} strokeWidth="1.4" />
+      </g>
+    </svg>
+  );
+}
+
+function DataGlyph() {
+  return (
+    <svg viewBox="0 0 60 60" className="h-9 w-9 overflow-visible" aria-hidden>
+      <g filter={`url(#${SOFT_ID})`} strokeLinecap="round" strokeLinejoin="round" fill="none">
+        <path d="M10 48 L10 12 M10 48 L50 48" stroke={INK} strokeOpacity="0.4" strokeWidth="1.8" />
+        <path d="M14 40 C 20 38, 24 30, 30 30 C 36 30, 40 20, 48 16" stroke="var(--color-pink)" strokeWidth="3" />
+        <circle cx="48" cy="16" r="3.2" fill="var(--color-milk)" stroke={INK} strokeWidth="1.8" />
+      </g>
+    </svg>
+  );
+}
+
+function DecisionGlyph() {
+  return (
+    <svg viewBox="0 0 60 60" className="h-9 w-9 overflow-visible" aria-hidden>
+      <g filter={`url(#${SOFT_ID})`} strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="30" cy="30" r="20" fill="var(--color-bio)" fillOpacity="0.35" stroke={INK} strokeWidth="2.2" />
+        <path d="M20 31 L27 38 L41 22" fill="none" stroke={INK} strokeWidth="2.8" />
+      </g>
+    </svg>
+  );
+}
+
+type PipelineStep = { label: string; sub: string; accent: string; glyph: React.ReactNode };
 
 const STEPS: PipelineStep[] = [
-  { label: "Cow", sub: "Welfare first", accent: "var(--color-ink)", cow: true },
-  { label: "Milk sample", sub: "Taken at milking", icon: Milk, accent: "var(--color-orange)" },
-  { label: "Biosensor", sub: "Recognition → signal", icon: TestTube, accent: "var(--color-signal)" },
-  { label: "Readout", sub: "Colour / fluorescence", icon: Cpu, accent: "var(--color-butter)" },
-  { label: "Data", sub: "Trend over time", icon: LineChart, accent: "var(--color-pink)" },
-  { label: "Decision", sub: "Act earlier", icon: CheckCircle2, accent: "var(--color-bio)" },
+  { label: "Cow", sub: "Welfare first", accent: "var(--color-pink)", glyph: <Art id="cow" size={44} motion="none" /> },
+  { label: "Milk sample", sub: "Taken at milking", accent: "var(--color-orange)", glyph: <DropMark className="h-9 w-auto" /> },
+  { label: "Biosensor", sub: "Recognition → signal", accent: "var(--color-signal)", glyph: <FlaskMark className="h-10 w-auto" liquid="pink" /> },
+  { label: "Readout", sub: "Colour / fluorescence", accent: "var(--color-butter)", glyph: <ReadoutGlyph /> },
+  { label: "Data", sub: "Trend over time", accent: "var(--color-pink)", glyph: <DataGlyph /> },
+  { label: "Decision", sub: "Act earlier", accent: "var(--color-bio)", glyph: <DecisionGlyph /> },
 ];
 
-/** FarmToLabPipeline — cow → milk → biosensor → readout → data → decision. */
+/** FarmToLabPipeline — cow → milk → biosensor → readout → data → decision, drawn. */
 export function FarmToLabPipeline() {
   return (
     <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-6 sm:gap-x-1">
-      {STEPS.map((s, i) => {
-        const Icon = s.icon;
-        return (
-          <motion.div
-            key={s.label}
-            className="flex items-start gap-1 sm:gap-2"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, delay: i * 0.06 }}
-          >
-            <div className="flex w-[4.5rem] flex-col items-center gap-1.5 text-center sm:w-20">
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-xl border border-ink/10 sm:h-14 sm:w-14"
-                style={{ background: `color-mix(in srgb, ${s.accent} 14%, var(--color-milk))` }}
-              >
-                {s.cow ? (
-                  <CowGlyph className="h-7 w-7 text-ink-70 sm:h-8 sm:w-8" />
-                ) : Icon ? (
-                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: s.accent }} aria-hidden />
-                ) : null}
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-ink sm:text-sm">{s.label}</p>
-                <p className="text-[0.65rem] leading-snug text-ink-55 sm:text-xs">{s.sub}</p>
-              </div>
+      {STEPS.map((s, i) => (
+        <motion.div
+          key={s.label}
+          className="flex items-start gap-1 sm:gap-2"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.4, delay: i * 0.06 }}
+        >
+          <div className="flex w-[4.5rem] flex-col items-center gap-1.5 text-center sm:w-20">
+            <div className="relative grid h-14 w-14 place-items-center sm:h-16 sm:w-16">
+              <Blob shape={(["a", "b", "c", "d"] as const)[i % 4]} fill={s.accent} className="absolute inset-0 h-full w-full opacity-25" />
+              <div className="relative">{s.glyph}</div>
             </div>
-            {i < STEPS.length - 1 && (
-              <span className="mt-5 hidden text-ink-40 sm:block" aria-hidden>
-                →
-              </span>
-            )}
-          </motion.div>
-        );
-      })}
+            <div>
+              <p className="text-xs font-semibold text-ink sm:text-sm">{s.label}</p>
+              <p className="text-[0.65rem] leading-snug text-ink-55 sm:text-xs">{s.sub}</p>
+            </div>
+          </div>
+          {i < STEPS.length - 1 && (
+            <svg viewBox="0 0 24 12" className="mt-6 hidden h-3 w-6 text-ink-40 sm:block" aria-hidden>
+              <path d="M2 6 C 8 5, 14 7, 21 6 M17 2 L22 6 L17 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </motion.div>
+      ))}
     </div>
   );
 }

@@ -1,0 +1,38 @@
+{
+  "candidates": {
+    "styleId": "61cfe71c-6dda-4f79-945b-ac670f35ed3e",
+    "cash-3": {
+      "url": "https://v3b.fal.media/files/b/0aa8d807/hipVzecouYU0YcUWIQl3J_puH9PgxK.webp",
+      "key": "2486f5",
+      "blue": true
+    },
+    "cash-1": {
+      "url": "https://v3b.fal.media/files/b/0aa8d807/DQBWAcOEVmTK2vb3wMppv_4J0f8bWJ.webp",
+      "key": "0386f8",
+      "blue": true
+    },
+    "cash-2": {
+      "url": "https://v3b.fal.media/files/b/0aa8d807/rx2dYQgSI0sMCPympB7Zd_Z6IYznQB.webp",
+      "key": "0175f4",
+      "blue": true
+    }
+  },
+  "still": {
+    "candidate": "review/cash-2.png",
+    "poster": "cash-poster.png",
+    "frame": "cash-frame.png"
+  },
+  "video": {
+    "url": "https://v3b.fal.media/files/b/0aa8d83b/Zcr3dU6TJ2roveLpAFpWw_output.mp4",
+    "prompt": "Locked camera, no zoom, no pan. The whole background stays one completely flat solid bright blue colour for the entire clip. The green paper banknotes flap and flop like soft paper as they explode outward from the centre — they bend, ripple, tumble and wave, floppy and weightless, never rigid, never coins. Flat 2D cartoon clip-art, thick even dark-brown outlines, no text, no people, no coins, no pail.",
+    "seed": null
+  },
+  "matte": {
+    "webm": "cash.webm",
+    "mov": "cash.mov",
+    "mp4": "cash.mp4",
+    "key": "028efa",
+    "similarity": 0.16,
+    "blend": 0.14
+  }
+}

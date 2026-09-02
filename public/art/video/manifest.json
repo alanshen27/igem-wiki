@@ -1,0 +1,33 @@
+{
+  "still": {
+    "candidate": "review/pail-6.png",
+    "url": "https://v3b.fal.media/files/b/0aa8d596/ugTOM5hbMpE0Urt5b5JaT_ExjDeAPt.webp",
+    "key": "01aa33",
+    "poster": "pour-poster.png",
+    "frame": "pour-frame.png",
+    "frameGreen": "00b140",
+    "frameUrl": "https://v3b.fal.media/files/b/0aa8d59e/oPN2KVbbX5aaB1_dm2ion_pour-frame.png"
+  },
+  "video": {
+    "url": "https://v3b.fal.media/files/b/0aa8d5bd/8oFkAmL1zmHVKTFIuRjtH_output.mp4",
+    "prompt": "Locked camera, no zoom, no pan, no shake. The whole background stays one completely flat solid bright green colour (green screen) for the entire clip, nothing else in the background. The plain ivory bucket slowly tips over to one side and pours one thick, smooth, continuous column of bright white milk from its rim, which falls straight down and out of the bottom edge of the frame. The stream stays attached to the lip the whole time, never a gap, never droplets. The pail keeps pouring until the end of the clip, rising a little as it tips. Nothing else enters the frame. Flat hand-drawn clip-art look: thick even dark-brown outlines, flat fills, the milk stream is a simple flat white shape with a dark-brown outline, 2D cartoon animation, no shading, no text, no people, no extra objects, no splash at the bottom, no pool.",
+    "seed": null
+  },
+  "matte": {
+    "webm": "pour.webm",
+    "mov": "pour.mov",
+    "mp4": "pour.mp4",
+    "mode": "key",
+    "key": "00ae3c",
+    "similarity": 0.14,
+    "blend": 0.12
+  },
+  "subject": "pail",
+  "candidates": {
+    "styleId": "61cfe71c-6dda-4f79-945b-ac670f35ed3e",
+    "pail-6": {
+      "url": "https://v3b.fal.media/files/b/0aa8d596/ugTOM5hbMpE0Urt5b5JaT_ExjDeAPt.webp",
+      "key": "01aa33"
+    }
+  }
+}

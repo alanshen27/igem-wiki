@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { BackToTop } from "@/components/site/back-to-top";
+import { SketchDefs } from "@/components/viz/sketch";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
@@ -62,6 +63,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <SketchDefs />
         <ScrollProgress />
         <SiteNav />
         <main id="main" className="flex-1">

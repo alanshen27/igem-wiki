@@ -1,0 +1,19 @@
+{
+  "still": {
+    "file": "pour-still.png",
+    "url": "https://v3b.fal.media/files/b/0aa8baf8/v2EPz6SjMhkCsI39VK8WZ_ufeU1odX.webp",
+    "poster": "pour-poster.png",
+    "frame": "pour-frame.png",
+    "frameUrl": "https://v3b.fal.media/files/b/0aa8bb04/I4SC0GV5VSel8x2TN2-Vu_pour-frame.png"
+  },
+  "video": {
+    "file": "pour-raw.mp4",
+    "url": "https://v3b.fal.media/files/b/0aa8bb0c/7g_RxrExzm50BK4BJ-27g_output.mp4"
+  },
+  "matte": {
+    "webm": "pour.webm",
+    "mov": "pour.mov",
+    "mp4": "pour.mp4",
+    "url": "https://v3b.fal.media/files/b/0aa8bb10/GTjdzN7H9FhDc7dZqciju_output.webm"
+  }
+}

@@ -76,3 +76,16 @@ export const ALL_PAGES: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
   ...NAV.flatMap((g) => g.links.map(({ label, href }) => ({ label, href }))),
 ];
+
+/** Short description for a page, pulled from the nav metadata. */
+export function pageDesc(href: string): string | undefined {
+  for (const g of NAV) for (const l of g.links) if (l.href === href) return l.desc;
+  return undefined;
+}
+
+/** Nav label for a page — the short banner word. */
+export function pageLabel(href: string): string | undefined {
+  for (const g of NAV) for (const l of g.links) if (l.href === href) return l.label;
+  return undefined;
+}
+

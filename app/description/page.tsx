@@ -5,6 +5,7 @@ import { Callout } from "@/components/ui/callout";
 import { BiosensorDiagram } from "@/components/viz/biosensor-diagram";
 import { ReferenceList } from "@/components/ui/reference-list";
 import { REFERENCES } from "@/lib/content";
+import { sceneFor } from "@/lib/art";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -39,6 +40,8 @@ export default function DescriptionPage() {
       <PageHero
         kicker="Project · Description"
         accent="signal"
+        scene={sceneFor("/description")}
+        name="Description"
         title="A synthetic biology approach to earlier mastitis detection"
         lede="AURA aims to explore whether biological recognition can be turned into a readable signal that flags mastitis-related changes in milk sooner — supporting the people who care for dairy cattle."
       />
@@ -94,9 +97,8 @@ export default function DescriptionPage() {
           <p>
             Roughly one in three dairy cows experience mastitis, with reported annual herd
             incidence spanning 47–65%. The estimated global economic burden reaches around €30
-            billion per year. Critically, direct treatment is less than 15% of that total — the rest
-            is discarded milk, reduced yield, culling, labour, and quality penalties. Behind the
-            economics sits animal welfare and the quality of a staple food.
+            billion per year. Direct treatment is less than 15% of that total — the rest is
+            discarded milk, reduced yield, culling, labour, and quality penalties.
           </p>
         </WikiSection>
 

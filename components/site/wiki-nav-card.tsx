@@ -39,11 +39,6 @@ export function WikiNavCard({
         className,
       )}
     >
-      <div
-        className="absolute right-0 top-0 h-14 w-14 rounded-bl-[1.25rem] opacity-[0.14] transition-opacity duration-300 group-hover:opacity-[0.26]"
-        style={{ background: hex }}
-        aria-hidden
-      />
       <div className="relative">
         <span
           className={cn(

@@ -29,7 +29,7 @@ export function NotebookBlock() {
 
 export function TeamGrid() {
   return (
-    <div className="not-prose my-6 grid gap-4 sm:grid-cols-2">
+    <div className="not-prose my-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {TEAM_MEMBERS.map((m) => (
         <TeamCard key={m.name} member={m} />
       ))}

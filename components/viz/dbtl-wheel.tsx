@@ -2,24 +2,33 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
-import { PenLine, Hammer, FlaskConical, Lightbulb } from "lucide-react";
+import { Blob, LINE, SOFT_ID } from "@/components/viz/sketch";
 import { cn } from "@/lib/utils";
 
 const PHASES = [
-  { key: "design", label: "Design", icon: PenLine, accent: "var(--color-signal)", blurb: "Define the target signal and the biological logic that could read it." },
-  { key: "build", label: "Build", icon: Hammer, accent: "var(--color-butter)", blurb: "Assemble constructs, select parts, and prepare the assay." },
-  { key: "test", label: "Test", icon: FlaskConical, accent: "var(--color-bio)", blurb: "Characterise behaviour against controls and expected outputs." },
-  { key: "learn", label: "Learn", icon: Lightbulb, accent: "var(--color-pink)", blurb: "Interpret results, then feed insight back into the next design." },
+  { key: "design", letter: "D", label: "Design", accent: "var(--color-signal)", blurb: "Define the target signal and the biological logic that could read it." },
+  { key: "build", letter: "B", label: "Build", accent: "var(--color-butter)", blurb: "Assemble constructs, select parts, and prepare the assay." },
+  { key: "test", letter: "T", label: "Test", accent: "var(--color-bio)", blurb: "Characterise behaviour against controls and expected outputs." },
+  { key: "learn", letter: "L", label: "Learn", accent: "var(--color-pink)", blurb: "Interpret results, then feed insight back into the next design." },
 ];
 
-const SIZE = 280;
+const SIZE = 300;
 const CENTER = SIZE / 2;
-const RADIUS = 96;
+const RADIUS = 100;
 const RING = 2 * Math.PI * RADIUS;
+const INK = LINE;
+
+/* a hand-drawn circle: four slightly-off arcs instead of a perfect <circle> */
+const LOOP = `M ${CENTER} ${CENTER - RADIUS}
+  C ${CENTER + 56} ${CENTER - RADIUS - 2}, ${CENTER + RADIUS + 2} ${CENTER - 54}, ${CENTER + RADIUS} ${CENTER}
+  C ${CENTER + RADIUS - 2} ${CENTER + 56}, ${CENTER + 54} ${CENTER + RADIUS + 2}, ${CENTER} ${CENTER + RADIUS}
+  C ${CENTER - 56} ${CENTER + RADIUS - 1}, ${CENTER - RADIUS - 1} ${CENTER + 54}, ${CENTER - RADIUS} ${CENTER}
+  C ${CENTER - RADIUS + 1} ${CENTER - 56}, ${CENTER - 54} ${CENTER - RADIUS + 1}, ${CENTER} ${CENTER - RADIUS} Z`;
 
 /**
- * DbtlWheel — pins while you scroll through four phases. Intro copy lives inside
- * the sticky frame so there isn't a huge dead zone above the wheel.
+ * DbtlWheel — pins while you scroll through four phases. Drawn in the same
+ * ink-and-flat-fill hand as the rest of the kit: a pencil loop, an accent
+ * arc that fills as you go, and four inked discs lettered D · B · T · L.
  */
 export function DbtlWheel({ className }: { className?: string }) {
   const reduce = useReducedMotion();
@@ -35,14 +44,24 @@ export function DbtlWheel({ className }: { className?: string }) {
     setActive(Math.min(3, Math.floor(v * 4)));
   });
 
-  const ringRotate = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const wheelY = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 24, reduce ? 0 : -24]);
   const textY = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : -16, reduce ? 0 : 16]);
+  const washRotate = useTransform(scrollYProgress, [0, 1], [-6, 6]);
+  const phase = PHASES[active];
 
   return (
     <div ref={ref} className={cn("relative h-[165vh]", className)}>
-      <div className="sticky top-0 flex min-h-screen flex-col items-center justify-center gap-8 px-6 py-16 sm:gap-10 sm:py-20">
-        <div className="max-w-2xl text-center">
+      <div className="sticky top-0 flex min-h-screen flex-col items-center justify-center gap-8 overflow-hidden px-6 py-16 sm:gap-10 sm:py-20">
+        {/* flat wash, re-tints per phase */}
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-[56%] z-0 h-[52vmin] w-[52vmin] -translate-x-[62%] -translate-y-1/2 [&_path]:transition-[fill] [&_path]:duration-700"
+          style={{ rotate: washRotate }}
+          aria-hidden
+        >
+          <Blob shape="d" fill={phase.accent} className="h-full w-full opacity-[0.12]" />
+        </motion.div>
+
+        <div className="relative max-w-2xl text-center">
           <span className="kicker text-butter">Engineering</span>
           <p className="mt-3 text-sm leading-relaxed text-ink-70 sm:text-base">
             Five iterative cycles — each loop turns a question into a design, a build into a test,
@@ -50,60 +69,68 @@ export function DbtlWheel({ className }: { className?: string }) {
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
-          <motion.div style={{ y: wheelY }} className="relative h-[280px] w-[280px] shrink-0">
-            <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0 h-full w-full">
-              <motion.circle
-                cx={CENTER}
-                cy={CENTER}
-                r={RADIUS}
-                fill="none"
-                stroke="var(--color-ink)"
-                strokeOpacity="0.12"
-                strokeWidth="1.5"
-                strokeDasharray="4 8"
-                style={{ transformOrigin: `${CENTER}px ${CENTER}px`, rotate: ringRotate }}
-              />
-              <motion.circle
-                cx={CENTER}
-                cy={CENTER}
-                r={RADIUS}
-                fill="none"
-                stroke={PHASES[active].accent}
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeDasharray={RING}
-                animate={{ strokeDashoffset: RING * (1 - (active + 1) / 4) }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                transform={`rotate(-90 ${CENTER} ${CENTER})`}
-              />
-            </svg>
+        <div className="relative flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
+          <motion.div style={{ y: wheelY }} className="relative h-[300px] w-[300px] shrink-0">
+            <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0 h-full w-full overflow-visible">
+              <g filter={`url(#${SOFT_ID})`}>
+                {/* pencil loop */}
+                <path d={LOOP} fill="none" stroke={INK} strokeOpacity="0.28" strokeWidth="2" strokeDasharray="5 7" strokeLinecap="round" />
+                {/* accent arc grows one quarter per phase */}
+                <motion.circle
+                  cx={CENTER}
+                  cy={CENTER}
+                  r={RADIUS}
+                  fill="none"
+                  stroke={phase.accent}
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeDasharray={RING}
+                  animate={{ strokeDashoffset: RING * (1 - (active + 1) / 4), stroke: phase.accent }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transform={`rotate(-90 ${CENTER} ${CENTER})`}
+                />
+                {/* arrowhead at the loop's return, drawn */}
+                <path
+                  d={`M ${CENTER - 10} ${CENTER - RADIUS - 9} L ${CENTER + 2} ${CENTER - RADIUS} L ${CENTER - 10} ${CENTER - RADIUS + 9}`}
+                  fill="none"
+                  stroke={INK}
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
 
-            {PHASES.map((p, i) => {
-              const angle = (i / PHASES.length) * Math.PI * 2 - Math.PI / 2;
-              const x = Math.cos(angle) * RADIUS;
-              const y = Math.sin(angle) * RADIUS;
-              const Icon = p.icon;
-              const isActive = i === active;
-              return (
-                <motion.div
-                  key={p.key}
-                  className="absolute left-1/2 top-1/2 flex h-16 w-16 items-center justify-center rounded-full border"
-                  style={{
-                    marginLeft: -32,
-                    marginTop: -32,
-                    x,
-                    y,
-                    background: isActive ? p.accent : "var(--color-milk)",
-                    borderColor: isActive ? p.accent : "color-mix(in srgb, var(--color-ink) 15%, transparent)",
-                    scale: isActive ? 1.14 : 1,
-                  }}
-                  aria-hidden
-                >
-                  <Icon className="h-6 w-6 text-ink" />
-                </motion.div>
-              );
-            })}
+                {PHASES.map((p, i) => {
+                  const angle = (i / PHASES.length) * Math.PI * 2 - Math.PI / 2;
+                  const x = CENTER + Math.cos(angle) * RADIUS;
+                  const y = CENTER + Math.sin(angle) * RADIUS;
+                  const isActive = i === active;
+                  return (
+                    <motion.g
+                      key={p.key}
+                      animate={{ scale: isActive ? 1.14 : 1 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: `${x}px ${y}px` }}
+                    >
+                      {/* inked disc with a flat drop-shadow disc behind */}
+                      <circle cx={x + 2} cy={y + 3} r="27" fill={INK} fillOpacity="0.12" />
+                      <motion.circle
+                        cx={x}
+                        cy={y}
+                        r="27"
+                        stroke={INK}
+                        strokeWidth="2.4"
+                        animate={{ fill: isActive ? p.accent : "var(--color-milk)" }}
+                        transition={{ duration: 0.4 }}
+                      />
+                      <ellipse cx={x - 9} cy={y - 11} rx="6" ry="3.5" fill="#fffdf5" fillOpacity="0.8" transform={`rotate(-35 ${x - 9} ${y - 11})`} />
+                      <text x={x} y={y + 1} textAnchor="middle" dominantBaseline="central" className="font-display" fontSize="24" fill="var(--color-ink)">
+                        {p.letter}
+                      </text>
+                    </motion.g>
+                  );
+                })}
+              </g>
+            </svg>
 
             <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
               <p className="kicker text-ink-40">cycle</p>
@@ -121,14 +148,14 @@ export function DbtlWheel({ className }: { className?: string }) {
               <div
                 className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-widest"
                 style={{
-                  background: `color-mix(in srgb, ${PHASES[active].accent} 18%, transparent)`,
+                  background: `color-mix(in srgb, ${phase.accent} 22%, transparent)`,
                   color: "var(--color-ink)",
                 }}
               >
                 Phase {active + 1} / 4
               </div>
-              <h4 className="font-display text-3xl text-ink">{PHASES[active].label}</h4>
-              <p className="mt-2 leading-relaxed text-ink-70">{PHASES[active].blurb}</p>
+              <h4 className="font-display text-3xl text-ink">{phase.label}</h4>
+              <p className="mt-2 leading-relaxed text-ink-70">{phase.blurb}</p>
             </motion.div>
           </motion.div>
         </div>

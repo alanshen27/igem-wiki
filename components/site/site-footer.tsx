@@ -6,11 +6,7 @@ import { AuraMark } from "./aura-mark";
 export function SiteFooter() {
   return (
     <footer className="section-dark relative">
-      <div
-        className="pointer-events-none absolute right-[22%] top-[-10%] h-80 w-80 aura-bloom opacity-[0.16] blur-2xl"
-        aria-hidden
-      />
-      <Container className="relative py-16">
+      <Container size="wide" className="relative py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <Link href="/" className="flex items-center gap-2.5">
@@ -30,7 +26,7 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
             {NAV.map((group) => (
               <div key={group.label}>
-                <p className="font-mono text-[0.65rem] uppercase tracking-widest text-milk/40">
+                <p className="text-sm text-milk/45">
                   {group.label}
                 </p>
                 <ul className="mt-3 space-y-2">

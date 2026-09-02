@@ -1,0 +1,139 @@
+{
+  "candidates": {
+    "styleId": "61cfe71c-6dda-4f79-945b-ac670f35ed3e",
+    "splash-still-3": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5a2/kdeEu-CV3jkXlkpJPEq01_mXU9WIvQ.webp",
+      "key": "00b148"
+    },
+    "splash-still-2": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5a2/5FLT7ON0D_5Z-5WgOKDYk_RwCc8kyE.webp",
+      "key": "fffefe"
+    },
+    "splash-still-1": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5a2/dMLBM7Nh-TtHRVZ6wdYzX_WKkpUm0k.webp",
+      "key": "01b642"
+    },
+    "splash-still-4": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5a3/yo7kXj0Z3jHDXaYCGUsIo_9uXHGgin.webp",
+      "key": "fffefe"
+    },
+    "splash-still-8": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c0/n4hbWtBE7GBTuZkRHnURK_7f8LcJkV.webp",
+      "key": "00be59"
+    },
+    "splash-still-7": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c0/vLEc79z7QIdv-bYWr0C2d_iXL1yoU8.webp",
+      "key": "01b04f"
+    },
+    "splash-still-5": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c0/CEakVuMjp-2kR59cFQqQ5_I6YvQKYf.webp",
+      "key": "ffffff"
+    },
+    "splash-still-6": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c0/12-WuVBzsNlc0D56NJBbF_Ubgs3eNa.webp",
+      "key": "fffeff"
+    },
+    "splash-still-portrait-2": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5dc/34IbjAik6jj1rqA3V_0xa_6SH1oBig.webp",
+      "key": "fffeff"
+    },
+    "splash-still-portrait-4": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5dc/WLtSuR4YCOz5yTP8hS4sB_c7nzXkRM.webp",
+      "key": "02b242"
+    },
+    "splash-still-portrait-3": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5dc/jWGd-LvgSz-wPGAks0_52_3mYLevMQ.webp",
+      "key": "fffefe"
+    },
+    "splash-still-portrait-1": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5dc/tI7pP_Rfb47-P0vmY-ejo_zS5iRtET.webp",
+      "key": "fffefe"
+    },
+    "splash-still-portrait-8": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c8/fjSVMQkdK2yDUQvDu3zfg_PGoJnTHC.webp",
+      "key": "00ba3d"
+    },
+    "splash-still-portrait-5": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c8/tJlHerN3DZsHdosX4OH08_tGBox8i5.webp",
+      "key": "07b04a"
+    },
+    "splash-still-portrait-7": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c8/5Pvppk7HivemMKDRJQ6oZ_1ECkmRf5.webp",
+      "key": "fffeff"
+    },
+    "splash-still-portrait-6": {
+      "url": "https://v3b.fal.media/files/b/0aa8d5c8/Ie1QH7PTGqKnNdPIcCV6K_X0W24lT2.webp",
+      "key": "fffeff"
+    }
+  },
+  "landscape": {
+    "still": {
+      "candidate": "review/splash-still-3.png",
+      "url": "https://v3b.fal.media/files/b/0aa8d5a2/kdeEu-CV3jkXlkpJPEq01_mXU9WIvQ.webp",
+      "key": "00b148",
+      "frame": "review/splash-frame.png",
+      "frameUrl": "https://v3b.fal.media/files/b/0aa8d5ad/thcqSJpZw3DlAGQgIcZwE_splash-frame.png"
+    },
+    "videos": {
+      "a": {
+        "url": "https://v3b.fal.media/files/b/0aa8d5c9/ldNRJAchaAhxeVvEBdfRQ_output.mp4",
+        "seed": null,
+        "prompt": "Flat 2D cartoon animation, static locked camera, no zoom, no pan. The whole background is one flat solid bright green colour (green screen) until the milk covers it. The tipped ivory bucket rocks forward and a huge wave of bright white milk explodes out of its mouth with big splashes and round droplets. The milk keeps pouring and surging, rushes toward the camera, swells up and completely fills the entire frame with flat solid white by the end of the clip; the very last frame is solid plain white milk edge to edge, nothing else visible. Thick even dark-brown outlines on the bucket and the milk edge, flat colours, no shading, no gradients, no text.",
+        "raw": "splash-video-a.mp4"
+      }
+    },
+    "matte": {
+      "source": "a",
+      "key": "00ae4a",
+      "similarity": 0.14,
+      "blend": 0.12,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "duration": 5.041667,
+      "webm": "splash.webm",
+      "mov": "splash.mov",
+      "mp4": "splash.mp4",
+      "poster": "splash-poster.png",
+      "last": "splash-last.png"
+    }
+  },
+  "portrait": {
+    "still": {
+      "candidate": "review/splash-still-portrait-4.png",
+      "url": "https://v3b.fal.media/files/b/0aa8d5dc/WLtSuR4YCOz5yTP8hS4sB_c7nzXkRM.webp",
+      "key": "02b242",
+      "frame": "review/splash-frame-portrait.png",
+      "frameUrl": "https://v3b.fal.media/files/b/0aa8d5cb/urdMBC4CfQN2_vz8lH9pW_splash-frame-portrait.png"
+    },
+    "videos": {
+      "a": {
+        "url": "https://v3b.fal.media/files/b/0aa8d5d3/Oo0BFvokXoYiwaaHsTFl0_output.mp4",
+        "seed": null,
+        "prompt": "Flat 2D cartoon animation, static locked camera, no zoom, no pan. The whole background is one flat solid bright green colour (green screen) until the milk covers it. The tipped ivory bucket rocks forward and a huge wave of bright white milk explodes out of its mouth with big splashes and round droplets. The milk keeps pouring and surging, rushes toward the camera, swells up and completely fills the entire frame with flat solid white by the end of the clip; the very last frame is solid plain white milk edge to edge, nothing else visible. Thick even dark-brown outlines on the bucket and the milk edge, flat colours, no shading, no gradients, no text.",
+        "raw": "splash-video-portrait-a.mp4"
+      },
+      "b": {
+        "url": "https://v3b.fal.media/files/b/0aa8d5e3/5a5sTshWDsIBbXpJg4Fe5_output.mp4",
+        "seed": null,
+        "prompt": "Flat 2D cartoon animation, static locked camera, no zoom, no pan. The whole background is one flat solid bright green colour (green screen) until the milk covers it. The tipped ivory bucket rocks forward and a huge wave of bright white milk explodes out of its mouth with big splashes and round droplets. The milk keeps pouring and surging, rushes toward the camera, swells up and completely fills the entire frame with flat solid white by the end of the clip; the very last frame is solid plain white milk edge to edge, nothing else visible. Thick even dark-brown outlines on the bucket and the milk edge, flat colours, no shading, no gradients, no text.",
+        "raw": "splash-video-portrait-b.mp4"
+      }
+    },
+    "matte": {
+      "source": "b",
+      "key": "01ae3e",
+      "similarity": 0.14,
+      "blend": 0.12,
+      "width": 1080,
+      "height": 1920,
+      "fps": 24,
+      "duration": 5.041667,
+      "webm": "splash-portrait.webm",
+      "mov": "splash-portrait.mov",
+      "mp4": "splash-portrait.mp4",
+      "poster": "splash-poster-portrait.png",
+      "last": "splash-last-portrait.png"
+    }
+  }
+}

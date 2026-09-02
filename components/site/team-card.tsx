@@ -21,7 +21,7 @@ export function TeamCard({ member }: { member: Member }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="group relative overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-milk/70 p-6"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-milk p-6 sm:p-7"
     >
       <div
         className="absolute -right-10 -top-10 h-28 w-28 rounded-full opacity-15 blur-2xl transition-opacity duration-300 group-hover:opacity-35"
@@ -30,7 +30,7 @@ export function TeamCard({ member }: { member: Member }) {
       />
       <div className="relative flex items-center gap-4">
         <div
-          className="flex h-14 w-14 items-center justify-center rounded-2xl font-display text-xl text-ink"
+          className="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-2xl text-ink"
           style={{ background: `color-mix(in srgb, ${hex} 22%, transparent)` }}
         >
           {member.initials}

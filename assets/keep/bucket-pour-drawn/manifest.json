@@ -1,0 +1,20 @@
+{
+  "still": {
+    "file": "pour-still.png",
+    "url": "https://v3b.fal.media/files/b/0aa8ce9f/V8iMRlg0z4Ghnm8FG0cxt_4WQ2303P.webp",
+    "poster": "pour-poster.png",
+    "frame": "pour-frame.png",
+    "frameUrl": "https://v3b.fal.media/files/b/0aa8cea3/svk0JT0OUHizoaV71G6pS_pour-frame.png"
+  },
+  "video": {
+    "file": "pour-raw.mp4",
+    "url": "https://v3b.fal.media/files/b/0aa8cec2/VvySyNiv4g73Chww-ugVe_output.mp4"
+  },
+  "matte": {
+    "webm": "pour.webm",
+    "mov": "pour.mov",
+    "mp4": "pour.mp4",
+    "url": "https://v3b.fal.media/files/b/0aa8ceaf/Wbt79QFZ9JHh9HAT9sTEV_output.webm"
+  },
+  "subject": "bucket"
+}
